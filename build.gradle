@@ -48,8 +48,14 @@ dependencies {
 def incubatorArgs = ["--add-modules", "jdk.incubator.foreign"]
 
 application {
-    mainClass = 'ok.dht.test.pashchenko.DemoServer'
+    mainClass = 'ok.dht.test.kovalenko.utils.Main'
     applicationDefaultJvmArgs = ['-Xmx128m'] + incubatorArgs
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'ok.dht.test.kovalenko.utils.Main'
+    }
 }
 
 test {

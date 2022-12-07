@@ -22,51 +22,41 @@ public final class Client {
                 .build();
     }
 
+    public CompletableFuture<HttpResponse<byte[]>> get(String uri) {
+        HttpRequest httpRequest = request(uri, false).GET().build();
+        return sendAsync(httpRequest);
+    }
+
     public CompletableFuture<HttpResponse<byte[]>> get(String url, MyHttpSession session,
                                                        boolean isRequestForReplica)
             throws IOException, InterruptedException {
-        HttpRequest httpRequest = requestForKey(
-                url,
-                session,
-                isRequestForReplica
-        ).GET().build();
+        return get(url + "/v0/entity?id=" + session.getRequestId() + session.getReplicas().toHttpString());
+    }
+
+    public CompletableFuture<HttpResponse<byte[]>> put(String uri, byte[] data) {
+        HttpRequest httpRequest = request(uri, false).PUT(HttpRequest.BodyPublishers.ofByteArray(data)).build();
         return sendAsync(httpRequest);
     }
 
     public CompletableFuture<HttpResponse<byte[]>> put(String url, byte[] data, MyHttpSession session,
                                                        boolean isRequestForReplica)
             throws IOException, InterruptedException {
-        HttpRequest httpRequest = requestForKey(
-                url,
-                session,
-                isRequestForReplica
-        ).PUT(HttpRequest.BodyPublishers.ofByteArray(data)).build();
-        return sendAsync(httpRequest);
+        return put(url + "/v0/entity?id=" + session.getRequestId() + session.getReplicas().toHttpString(), data);
     }
 
     public CompletableFuture<HttpResponse<byte[]>> delete(String url, MyHttpSession session,
                                                           boolean isRequestForReplica)
             throws IOException, InterruptedException {
-        HttpRequest httpRequest = requestForKey(
-                url,
-                session,
-                isRequestForReplica
-        ).DELETE().build();
+       return delete(url + "/v0/entity?id=" + session.getRequestId() + session.getReplicas().toHttpString());
+    }
+
+    public CompletableFuture<HttpResponse<byte[]>> delete(String uri) {
+        HttpRequest httpRequest = request(uri, false).DELETE().build();
         return sendAsync(httpRequest);
     }
 
-    private HttpRequest.Builder requestForKey(String url, MyHttpSession session,
-                                              boolean isRequestForReplica) {
-        return request(
-                url,
-                "/v0/entity?id=" + session.getRequestId() + session.getReplicas().toHttpString(),
-                isRequestForReplica
-        );
-    }
-
-    private HttpRequest.Builder request(String url, String path,
-                                        boolean isRequestForReplica) {
-        HttpRequest.Builder builder = HttpRequest.newBuilder(URI.create(url + path)).timeout(TIMEOUT);
+    private HttpRequest.Builder request(String uri, boolean isRequestForReplica) {
+        HttpRequest.Builder builder = HttpRequest.newBuilder(URI.create(uri)).timeout(TIMEOUT);
         if (isRequestForReplica) {
             builder.header(HttpUtils.REPLICA_HEADER, "");
         }

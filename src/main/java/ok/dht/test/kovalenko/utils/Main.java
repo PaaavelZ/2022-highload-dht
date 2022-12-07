@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -43,13 +44,18 @@ public final class Main {
 
     public static void main(String[] args) {
         try {
-            for (ServiceConfig config : configs) {
-                MyServiceBase service = new MyServiceBase(config);
-                service.start().get(1, TimeUnit.SECONDS);
-            }
-            log.debug("END");
+            int port = Integer.parseInt(args[0]);
+            String url = args[1];
+            List<String> clusterUrls = List.of(args[2].split(", "));
+            Path workingDir = Path.of(args[3]);
+            ServiceConfig cfg = new ServiceConfig(port, url, clusterUrls, workingDir);
+            MyServiceBase service = new MyServiceBase(cfg);
+            service.start().get(1, TimeUnit.SECONDS);
+
+            log.debug("Socket " + url + " has started successfully");
         } catch (Exception e) {
             log.error("Fatal error", e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -59,6 +65,7 @@ public final class Main {
             service.start().get(1, TimeUnit.SECONDS);
         } catch (Exception e) {
             log.error("Socket wasn't started: {}", urls.get(serviceOrdinal - 1), e);
+            throw new RuntimeException(e);
         }
     }
 }

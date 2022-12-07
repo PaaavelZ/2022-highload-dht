@@ -1,2 +1,4 @@
 rootProject.name = '2022-highload-dht'
+include 'src:main:java:ok:dht:test:kovalenko:ycsb'
+findProject(':src:main:java:ok:dht:test:kovalenko:ycsb')?.name = 'ycsb'
 
