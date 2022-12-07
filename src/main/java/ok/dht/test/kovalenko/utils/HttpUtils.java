@@ -1,13 +1,12 @@
 package ok.dht.test.kovalenko.utils;
 
-import ok.dht.test.kovalenko.Client;
+import ok.dht.test.kovalenko.http.Client;
 import ok.dht.test.kovalenko.dao.utils.PoolKeeper;
 import one.nio.http.HttpSession;
 import one.nio.http.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.http.HttpResponse;
 import java.util.concurrent.ExecutorService;

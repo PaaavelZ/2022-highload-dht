@@ -1,6 +1,6 @@
 package ok.dht.test.kovalenko.utils;
 
-import ok.dht.test.kovalenko.LoadBalancer;
+import ok.dht.test.kovalenko.http.LoadBalancer;
 import one.nio.http.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

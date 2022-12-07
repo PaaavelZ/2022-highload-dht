@@ -1,7 +1,7 @@
 package ok.dht.test.kovalenko.shards;
 
 import ok.dht.ServiceConfig;
-import ok.dht.test.kovalenko.MyServiceBase;
+import ok.dht.test.kovalenko.http.MyServiceBase;
 import ok.dht.test.kovalenko.utils.Main;
 
 import java.io.IOException;

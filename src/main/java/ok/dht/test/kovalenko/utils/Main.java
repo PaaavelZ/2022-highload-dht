@@ -1,7 +1,7 @@
 package ok.dht.test.kovalenko.utils;
 
 import ok.dht.ServiceConfig;
-import ok.dht.test.kovalenko.MyServiceBase;
+import ok.dht.test.kovalenko.http.MyServiceBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
