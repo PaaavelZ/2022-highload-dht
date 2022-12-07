@@ -31,7 +31,7 @@ public class MyDB extends DB {
         try {
             // As expected, 'table' and 'fields' don't matter
             var cf = Client.INSTANSE.get(uriForKey(key));
-            var response = cf.get(); // No async interaction cause of a contract for 'return StatusCode'
+            var response = cf.get(); // No async interaction cause of a contract for 'return Status'
 
             if (response.statusCode() != HttpURLConnection.HTTP_OK) {
                 return Status.SERVICE_UNAVAILABLE;
@@ -67,7 +67,7 @@ public class MyDB extends DB {
             ByteIterator valueIt = values.values().iterator().next();
             byte[] value = valueIt.toString().getBytes(DaoUtils.BASE_CHARSET);
             var cf = Client.INSTANSE.put(uriForKey(key), value);
-            var response = cf.get(); // No async interaction cause of a contract for 'return StatusCode'
+            var response = cf.get(); // No async interaction cause of a contract for 'return Status'
 
             if (response.statusCode() != HttpURLConnection.HTTP_CREATED) {
                 return Status.SERVICE_UNAVAILABLE;
@@ -84,7 +84,7 @@ public class MyDB extends DB {
         try {
             // As expected, 'table' doesn't matter
             var cf = Client.INSTANSE.delete(uriForKey(key));
-            var response = cf.get(); // No async interaction cause of a contract for 'return StatusCode'
+            var response = cf.get(); // No async interaction cause of a contract for 'return Status'
 
             if (response.statusCode() != HttpURLConnection.HTTP_ACCEPTED) {
                 return Status.SERVICE_UNAVAILABLE;

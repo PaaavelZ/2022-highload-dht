@@ -46,9 +46,9 @@ public final class Main {
         try {
             int port = Integer.parseInt(args[0]);
             String url = args[1];
-            List<String> urls = List.of(args[2].split(", "));
+            List<String> clusterUrls = List.of(args[2].split(", "));
             Path workingDir = Path.of(args[3]); // For each shard this is a different dir. As expected, dir already exists
-            ServiceConfig cfg = new ServiceConfig(port, url, urls, workingDir);
+            ServiceConfig cfg = new ServiceConfig(port, url, clusterUrls, workingDir);
             MyServiceBase service = new MyServiceBase(cfg);
             service.start().get(1, TimeUnit.SECONDS);
 
