@@ -52,10 +52,26 @@ application {
     applicationDefaultJvmArgs = ['-Xmx128m'] + incubatorArgs
 }
 
+// attributes 'Main-Class': 'ok.dht.test.kovalenko.utils.Main'
+
 jar {
     manifest {
         attributes 'Main-Class': 'ok.dht.test.kovalenko.utils.Main'
     }
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+task customFatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'ok.dht.test.kovalenko.utils.Main'
+    }
+    baseName = 'all-in-one-jar'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }
 
 test {
