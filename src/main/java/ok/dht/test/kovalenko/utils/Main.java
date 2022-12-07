@@ -23,14 +23,14 @@ public final class Main {
     public static void main(String[] args) {
         try {
             String url = args[0];
-            int port = Integer.parseInt(url.split(":")[1]);
+            int port = Integer.parseInt(url.substring(url.lastIndexOf(":") + 1));
             List<String> clusterUrls = List.of(args[1].split(", "));
             Path workingDir = Path.of(args[2]);
             ServiceConfig cfg = new ServiceConfig(port, url, clusterUrls, workingDir);
             MyServiceBase service = new MyServiceBase(cfg);
             service.start().get(1, TimeUnit.SECONDS);
 
-            log.debug("Socket " + url + " has started successfully");
+            log.debug("Socket " + url + " with cluster urls " + clusterUrls + " has started successfully");
         } catch (Exception e) {
             log.error("Fatal error", e);
             throw new RuntimeException(e);
