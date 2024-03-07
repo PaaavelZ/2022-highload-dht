@@ -1,0 +1,22 @@
+flowchart LR
+    user[<img src='https://cdn.iconscout.com/icon/free/png-512/free-development-2230922-1914286.png?f=webp&w=256' /> \nuser]
+    LoadBalancer[<img src='https://cdn.iconscout.com/icon/premium/png-512-thumb/cluster-6375888-5339863.png?f=webp&w=256' /> \nLoadBalancer]
+    user <-- requests --> LoadBalancer
+
+    subgraph backend
+        LoadBalancer <-- balance --> Node1
+        LoadBalancer <-- balance --> Node2
+        LoadBalancer <-- balance --> Node3
+
+        subgraph NodeBoundary
+            style NodeBoundary stroke-dasharray: 5
+
+            Node1[<img src='https://cdn.iconscout.com/icon/premium/png-512-thumb/topology-11089227-8890593.png?f=webp&w=256' /> \nNode1]
+            Node2[<img src='https://cdn.iconscout.com/icon/premium/png-512-thumb/topology-11089227-8890593.png?f=webp&w=256' /> \nNode2]
+            Node3[<img src='https://cdn.iconscout.com/icon/premium/png-512-thumb/topology-11089227-8890593.png?f=webp&w=256' /> \nNode3]
+            
+            Node1 <-- DC --> Node2
+            Node1 <-- DC --> Node3
+            Node2 <-- DC --> Node3
+        end
+    end
