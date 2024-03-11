@@ -1,0 +1,14 @@
+flowchart LR
+    user[<img src='https://cdn.iconscout.com/icon/free/png-512/free-development-2230922-1914286.png?f=webp&w=256' /> \nuser]
+    
+    subgraph service
+        frontend
+
+        backend
+        frontend <-- requests --> backend
+    end
+
+    database[<img src='https://cdn.iconscout.com/icon/premium/png-512-thumb/database-1138-1150296.png?f=webp&w=256' /> \ndatabase]
+    backend --> database
+
+    user <-- requests --> frontend
