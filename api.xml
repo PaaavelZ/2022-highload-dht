@@ -1,0 +1,168 @@
+openapi: 3.0.3
+info:
+  title: Swagger Petstore - OpenAPI 3.0
+  description: |-
+    This is a NoSQL-endpoints
+  contact:
+    email: paaavel.2024@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+  
+servers:
+  - url: https://<localhost>:<port>/api/v0
+  
+tags:
+  - name: entity
+    description: Everything about your entities
+    
+paths:
+  /entity:
+    get:
+      tags:
+        - entity
+      summary: Get entity by ID
+      operationId: getEntity
+      parameters:
+        - name: id
+          in: query
+          description: entity id
+          required: true
+          explode: true
+          schema:
+            type: string
+        - name: ack
+          in: query
+          description: Count of desired replicas' acknowledges
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: from
+          in: query
+          description: Count of maximum replicas' acknowledges
+          required: false
+          explode: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Entity has been found
+          content:
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Entity has not been found
+          
+    put:
+      tags:
+        - entity
+      summary: Put entity by ID
+      operationId: putEntity
+      parameters:
+        - name: id
+          in: query
+          description: entity id
+          required: true
+          explode: true
+          schema:
+            type: string
+        - name: ack
+          in: query
+          description: Count of desired replicas' acknowledges
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: from
+          in: query
+          description: Count of maximum replicas' acknowledges
+          required: false
+          explode: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        '201':
+          description: Entity has been put
+          content:
+            application/json:
+              schema:
+                type: string
+                
+    delete:
+      tags:
+        - entity
+      summary: Delete entity by ID
+      operationId: deleteEntity
+      parameters:
+        - name: id
+          in: query
+          description: entity id
+          required: true
+          explode: true
+          schema:
+            type: string
+        - name: ack
+          in: query
+          description: Count of desired replicas' acknowledges
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: from
+          in: query
+          description: Count of maximum replicas' acknowledges
+          required: false
+          explode: true
+          schema:
+            type: string
+      responses:
+        '202':
+          description: Entity has been deleted
+          
+  /entities:
+    get:
+      tags:
+        - entity
+      summary: Get entities by ID
+      operationId: getEntities
+      parameters:
+        - name: id
+          in: query
+          description: entity id
+          required: true
+          explode: true
+          schema:
+            type: string
+        - name: ack
+          in: query
+          description: Count of desired replicas' acknowledges
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: from
+          in: query
+          description: Count of maximum replicas' acknowledges
+          required: false
+          explode: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Entity has been found
+          content:
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Entity has not been found
+          
