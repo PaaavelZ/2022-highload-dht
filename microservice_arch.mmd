@@ -1,0 +1,28 @@
+flowchart LR
+    user[<img src='https://cdn.iconscout.com/icon/free/png-512/free-development-2230922-1914286.png?f=webp&w=256' /> \nuser]
+    
+    subgraph frontend
+    end
+
+    user <-- requests --> frontend
+    
+    LoadBalancer[<img src='https://cdn.iconscout.com/icon/premium/png-512-thumb/cluster-6375888-5339863.png?f=webp&w=256' /> \nLoadBalancerService]
+    frontend <-- requests --> LoadBalancer
+
+    subgraph backend
+        LoadBalancer <-- balance --> Service1
+        LoadBalancer <-- balance --> Service2
+        LoadBalancer <-- balance --> Service3
+
+        subgraph NodeBoundary
+            style NodeBoundary stroke-dasharray: 5
+
+            Service1[<img src='https://cdn.iconscout.com/icon/premium/png-512-thumb/service-1407177-1190587.png?f=webp&w=256' /> \nService1]
+            Service2[<img src='https://cdn.iconscout.com/icon/premium/png-512-thumb/service-1407177-1190587.png?f=webp&w=256' /> \nService2]
+            Service3[<img src='https://cdn.iconscout.com/icon/premium/png-512-thumb/service-1407177-1190587.png?f=webp&w=256' /> \nService3]
+            
+            Service1 <-- call --> Service2
+            Service1 <-- call --> Service3
+            Service2 <-- call --> Service3
+        end
+    end
